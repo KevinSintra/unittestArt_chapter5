@@ -1,6 +1,6 @@
 import pytest
 
-from LogAnalyzer import ILogger, LogAnalyzer
+from LogAnalyzer import LogAnalyzer
 
 
 # class FakeLogger(ILogger):
@@ -29,3 +29,9 @@ def test_analyze_tooShortFileName_callLogger(mocker):
 
     # 以前去驗證方法有沒有被呼叫, 所以可以去掉(mock 框架已提供了驗證方法). 為了方便說明所以用 mark
     # assert 'too short' == logger.lastError
+
+def test_validSomeRules_notValidName_ReturnFalse(mocker):
+    fakeObject = mocker.patch('LogAnalyzer.IFileNameRules')
+    mocker.patch('LogAnalyzer.IFileNameRules.isValidLogFileName', return_value=False) # 方法設定回傳值
+    analyzer = LogAnalyzer(None, fakeObject)
+    assert False == analyzer.validSomeRules('abc.txt')
