@@ -51,7 +51,8 @@ def test_analyze_logThrow_callWebService(mocker):
     analyzer.minNameLength = 6
     analyzer.analyze('a.txt')
     assert mocker_method.called == True
-    assert mocker_method.call_args.args[0] == 'mocked log error'  # check params[0]
+    # assert mocker_method.call_args.args[0] == 'mocked log error'  # check params[0]
+    mocker_method.assert_called_with('mocked log error') # check params[0]
 
     # if arguments is multi, can use syntax of below:
     # assert mocker_method.call_args.args == ('metadata_example', 'action_example')
